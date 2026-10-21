@@ -4,8 +4,9 @@
 <div class="form-box">
   <h1>Üye Ol</h1>
   <form id="signup-form">
-    <label>Ad Soyad
-      <input type="text" name="ad" required autocomplete="name">
+    <label>Kullanıcı adı (3-20 karakter: harf, rakam, _)
+      <input type="text" name="kullanici_adi" required minlength="3" maxlength="20"
+             pattern="[A-Za-z0-9_]+" autocomplete="username">
     </label>
     <label>E-posta
       <input type="email" name="email" required autocomplete="email">
