@@ -1,12 +1,54 @@
 {% extends "base.html" %}
 {% block title %}Profilim{% endblock %}
 {% block content %}
-<h1>Profilim</h1>
-<div data-auth="in" hidden class="soon">
-  <p><strong>Ad:</strong> <span id="profile-name"></span></p>
-  <p><strong>E-posta:</strong> <span id="profile-email"></span></p>
+<div data-auth="in" hidden class="form-box">
+  <h1>Profilim</h1>
+  <form id="profile-form">
+    <label>Kullanıcı adı
+      <input type="text" id="profile-username" disabled>
+    </label>
+    <label>E-posta
+      <input type="email" id="profile-email" disabled>
+    </label>
+    <label>Ad
+      <input type="text" name="ad" maxlength="50" autocomplete="given-name">
+    </label>
+    <label>Soyad
+      <input type="text" name="soyad" maxlength="50" autocomplete="family-name">
+    </label>
+    <label>Telefon (10 hane, başında 0 olmadan, örn. 5xxxxxxxxx)
+      <input type="tel" name="telefon" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" autocomplete="tel-national">
+    </label>
+    <label>Cinsiyet
+      <select name="cinsiyet">
+        <option value="">Seçiniz</option>
+        <option value="Kadın">Kadın</option>
+        <option value="Erkek">Erkek</option>
+        <option value="Belirtmek istemiyorum">Belirtmek istemiyorum</option>
+      </select>
+    </label>
+    <label>Doğum tarihi
+      <input type="date" name="dogum">
+    </label>
+    <label>Sınıf / seviye
+      <select name="sinif">
+        <option value="">Seçiniz</option>
+        <option>Ortaokul</option>
+        <option>9. sınıf</option>
+        <option>10. sınıf</option>
+        <option>11. sınıf</option>
+        <option>12. sınıf</option>
+        <option>Mezun</option>
+        <option>Üniversite</option>
+        <option>Diğer</option>
+      </select>
+    </label>
+    <button class="btn btn-solid" type="submit">Kaydet</button>
+    <p id="form-msg" class="form-msg"></p>
+  </form>
 </div>
 <div data-auth="out">
+  <h1>Profilim</h1>
   <p>Profilini görmek için <a href="{{ base }}/giris/">giriş yapmalısın</a>.</p>
 </div>
 {% endblock %}
