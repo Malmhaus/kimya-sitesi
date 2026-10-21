@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Periyodik Cetvel{% endblock %}
+{% block content %}
+<h1>Periyodik Cetvel</h1>
+<p>Ayrıntılar için bir elemente tıkla.</p>
+
+<div class="pt-wide">
+  <input id="pt-search" class="pt-search" type="search" placeholder="Element ara (ad, sembol veya numara)">
+  <div class="pt-scroll">
+    <div id="pt-grid" class="pt-grid"></div>
+  </div>
+  <div id="pt-legend" class="pt-legend"></div>
+</div>
+
+<div id="el-overlay" class="el-overlay" hidden></div>
+<div id="el-panel" class="el-panel" role="dialog" aria-modal="true" hidden>
+  <button id="el-close" class="el-close" aria-label="Kapat">✕</button>
+  <div class="el-head">
+    <div id="el-box" class="el-box"></div>
+    <div>
+      <h2 id="el-name"></h2>
+      <div id="el-cat" class="el-cat"></div>
+    </div>
+  </div>
+  <table class="el-table">
+    <tr><th>Atom numarası</th><td id="el-num"></td></tr>
+    <tr><th>Atom kütlesi</th><td id="el-mass"></td></tr>
+    <tr><th>Grup</th><td id="el-group"></td></tr>
+  </table>
+
+  <div data-auth="in" hidden>
+    <table class="el-table">
+      <tr><th>Periyot</th><td id="el-period"></td></tr>
+      <tr><th>Oda sıcaklığında hâli</th><td id="el-state"></td></tr>
+      <tr><th>Elektron dizilimi</th><td id="el-config"></td></tr>
+    </table>
+    <p class="el-note" id="el-note" hidden>Bu elementin dizilimi kuramsal tahmindir, deneysel olarak kesinleşmemiştir.</p>
+  </div>
+
+  <div data-auth="out" class="locked">
+    <p>🔒 <strong>Elektron dizilimi, periyot ve hâl bilgisi için üye olmalısın.</strong></p>
+    <p>
+      <a class="btn btn-solid" href="{{ base }}/kayit/">Üye Ol</a>
+      <a class="btn btn-outline" href="{{ base }}/giris/">Giriş Yap</a>
+    </p>
+  </div>
+</div>
+
+<script src="{{ base }}/static/elementler.js"></script>
+<script src="{{ base }}/static/periyodik.js"></script>
+{% endblock %}
