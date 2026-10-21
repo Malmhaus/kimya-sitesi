@@ -30,7 +30,6 @@ env.globals["nav"] = NAV
 # Henüz içeriği hazır olmayan sayfalar
 PLACEHOLDER_PAGES = {
     "quizler": ("Quizler", "Konulara göre ayrılmış testler burada olacak."),
-    "periyodik-cetvel": ("Periyodik Cetvel", "118 elementin etkileşimli cetveli burada olacak."),
     "deneyler": ("Deneyler", "Deney anlatımları ve videoları burada olacak."),
     "sozluk": ("Kimya Sözlüğü", "Kimya terimlerinin açıklamaları burada olacak."),
     "hesaplayicilar": ("Hesaplayıcılar", "Mol, molarite ve benzeri hesaplayıcılar burada olacak."),
