@@ -48,7 +48,11 @@ def read_md(path):
     html = markdown.markdown(body, extensions=["tables", "fenced_code", "toc"])
     return meta, html
 
-
+def make_preview(html):
+    # İlk paragrafa kadar olan kısmı önizleme olarak al
+    parts = html.split("</p>", 1)
+    return parts[0] + "</p>" if len(parts) > 1 else html[:400]
+    
 def render(template, out_path, **ctx):
     html = env.get_template(template).render(base=BASE, **ctx)
     target = OUT / out_path
@@ -71,6 +75,7 @@ def collect_categories():
                 "title": meta.get("baslik", md.stem),
                 "order": meta.get("sira", 99),
                 "html": html,
+                "preview": make_preview(html),
             })
         topics.sort(key=lambda t: (t["order"], t["title"]))
         categories.append({
