@@ -6,16 +6,48 @@
   <title>{% block title %}Kimya Eğitimi{% endblock %}</title>
   <link rel="stylesheet" href="{{ base }}/static/style.css">
 </head>
-<body>
-  <header>
+<body data-base="{{ base }}">
+
+  <header class="topbar">
+    <button id="menu-btn" class="icon-btn" aria-label="Menüyü aç/kapat">☰</button>
     <a class="logo" href="{{ base }}/">⚗️ Kimya Eğitimi</a>
-    <nav>
-      <a href="{{ base }}/">Konular</a>
-    </nav>
+    <div class="spacer"></div>
+
+    <div class="user-area">
+      <div data-auth="out" class="auth-links">
+        <a class="btn btn-light" href="{{ base }}/giris/">Giriş Yap</a>
+        <a class="btn btn-solid" href="{{ base }}/kayit/">Üye Ol</a>
+      </div>
+
+      <div data-auth="in" hidden>
+        <button id="user-btn" class="btn btn-light">👤 <span id="user-name">Hesabım</span> ▾</button>
+        <div id="user-menu" class="user-menu" hidden>
+          <a href="{{ base }}/profil/">Profilim</a>
+          <a href="{{ base }}/ilerleme/">İlerlemem</a>
+          <button id="logout-btn" type="button">Çıkış Yap</button>
+        </div>
+      </div>
+    </div>
   </header>
+
+  <div id="overlay" class="overlay"></div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-title">Menü</div>
+    <nav>
+      {% for item in nav %}
+      <a href="{{ base }}{{ item.href }}"><span class="ico">{{ item.icon }}</span>{{ item.title }}</a>
+      {% endfor %}
+    </nav>
+  </aside>
+
   <main>
     {% block content %}{% endblock %}
   </main>
   <footer>© Kimya Eğitimi</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script src="{{ base }}/static/config.js"></script>
+  <script src="{{ base }}/static/app.js"></script>
 </body>
 </html>
