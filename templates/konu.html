@@ -4,7 +4,21 @@
 <p><a href="{{ base }}/konular/{{ cat.slug }}/">← {{ cat.title }}</a></p>
 <article>
   <h1>{{ topic.title }}</h1>
-  {{ topic.html | safe }}
+
+  <div data-auth="out">
+    {{ topic.preview | safe }}
+    <div class="locked">
+      <p>🔒 <strong>Devamını okumak için üye olmalısın.</strong></p>
+      <p>
+        <a class="btn btn-solid" href="{{ base }}/kayit/">Üye Ol</a>
+        <a class="btn btn-outline" href="{{ base }}/giris/">Giriş Yap</a>
+      </p>
+    </div>
+  </div>
+
+  <div data-auth="in" hidden>
+    {{ topic.html | safe }}
+    {# Konu sonu testi buraya gelecek #}
+  </div>
 </article>
-{# Konu sonu testi buraya gelecek #}
 {% endblock %}
