@@ -22,7 +22,7 @@ NAV = [
     {"href": "/deneyler/", "title": "Deneyler", "icon": "🔬"},
     {"href": "/sozluk/", "title": "Kimya Sözlüğü", "icon": "📖"},
     {"href": "/hesaplayicilar/", "title": "Hesaplayıcılar", "icon": "🧮"},
-    {"href": "/ilerleme/", "title": "İlerlemem", "icon": "📈"},
+    {"href": "/ilerleme/", "title": "İlerlemem", "icon": "📈", "auth": True},
     {"href": "/hakkinda/", "title": "Hakkında / İletişim", "icon": "ℹ️"},
 ]
 env.globals["nav"] = NAV
@@ -33,7 +33,6 @@ PLACEHOLDER_PAGES = {
     "deneyler": ("Deneyler", "Deney anlatımları ve videoları burada olacak."),
     "sozluk": ("Kimya Sözlüğü", "Kimya terimlerinin açıklamaları burada olacak."),
     "hesaplayicilar": ("Hesaplayıcılar", "Mol, molarite ve benzeri hesaplayıcılar burada olacak."),
-    "ilerleme": ("İlerlemem", "Çözdüğün testler ve puanların burada görünecek."),
     "hakkinda": ("Hakkında / İletişim", "Site ve iletişim bilgileri burada olacak."),
 }
 
@@ -116,6 +115,7 @@ def main():
     render("kayit.html", "kayit/index.html")
     render("profil.html", "profil/index.html")
     render("periyodik.html", "periyodik-cetvel/index.html")
+    render("ilerleme.html", "ilerleme/index.html")
 
     print(f"{len(categories)} kategori üretildi.")
 
