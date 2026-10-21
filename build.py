@@ -13,6 +13,31 @@ BASE = os.environ.get("BASE_URL", "")
 
 env = Environment(loader=FileSystemLoader(ROOT / "templates"))
 
+# Sol menüde görünecek bölümler
+NAV = [
+    {"href": "/", "title": "Ana Sayfa", "icon": "🏠"},
+    {"href": "/konular/", "title": "Konu Anlatımı", "icon": "📚"},
+    {"href": "/quizler/", "title": "Quizler", "icon": "📝"},
+    {"href": "/periyodik-cetvel/", "title": "Periyodik Cetvel", "icon": "🧪"},
+    {"href": "/deneyler/", "title": "Deneyler", "icon": "🔬"},
+    {"href": "/sozluk/", "title": "Kimya Sözlüğü", "icon": "📖"},
+    {"href": "/hesaplayicilar/", "title": "Hesaplayıcılar", "icon": "🧮"},
+    {"href": "/ilerleme/", "title": "İlerlemem", "icon": "📈"},
+    {"href": "/hakkinda/", "title": "Hakkında / İletişim", "icon": "ℹ️"},
+]
+env.globals["nav"] = NAV
+
+# Henüz içeriği hazır olmayan sayfalar
+PLACEHOLDER_PAGES = {
+    "quizler": ("Quizler", "Konulara göre ayrılmış testler burada olacak."),
+    "periyodik-cetvel": ("Periyodik Cetvel", "118 elementin etkileşimli cetveli burada olacak."),
+    "deneyler": ("Deneyler", "Deney anlatımları ve videoları burada olacak."),
+    "sozluk": ("Kimya Sözlüğü", "Kimya terimlerinin açıklamaları burada olacak."),
+    "hesaplayicilar": ("Hesaplayıcılar", "Mol, molarite ve benzeri hesaplayıcılar burada olacak."),
+    "ilerleme": ("İlerlemem", "Çözdüğün testler ve puanların burada görünecek."),
+    "hakkinda": ("Hakkında / İletişim", "Site ve iletişim bilgileri burada olacak."),
+}
+
 
 def read_md(path):
     text = path.read_text(encoding="utf-8")
@@ -66,13 +91,27 @@ def main():
 
     categories = collect_categories()
 
+    # Ana sayfa ve konu listesi
     render("index.html", "index.html", categories=categories)
+    render("konular.html", "konular/index.html", categories=categories)
+
+    # Kategori ve konu sayfaları
     for cat in categories:
         render("kategori.html", f"konular/{cat['slug']}/index.html",
                cat=cat, categories=categories)
         for topic in cat["topics"]:
             render("konu.html", f"konular/{cat['slug']}/{topic['slug']}/index.html",
                    cat=cat, topic=topic, categories=categories)
+
+    # Henüz hazır olmayan sayfalar
+    for slug, (title, desc) in PLACEHOLDER_PAGES.items():
+        render("sayfa.html", f"{slug}/index.html", title=title, desc=desc)
+
+    # Üyelik sayfaları
+    render("giris.html", "giris/index.html")
+    render("kayit.html", "kayit/index.html")
+    render("profil.html", "profil/index.html")
+
     print(f"{len(categories)} kategori üretildi.")
 
 
