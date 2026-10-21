@@ -36,7 +36,7 @@
     <div class="sidebar-title">Menü</div>
     <nav>
       {% for item in nav %}
-      <a href="{{ base }}{{ item.href }}"><span class="ico">{{ item.icon }}</span>{{ item.title }}</a>
+      <a href="{{ base }}{{ item.href }}"{% if item.auth %} data-auth="in" hidden{% endif %}><span class="ico">{{ item.icon }}</span>{{ item.title }}</a>
       {% endfor %}
     </nav>
   </aside>
