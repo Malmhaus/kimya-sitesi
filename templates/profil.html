@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Profilim{% endblock %}
+{% block content %}
+<h1>Profilim</h1>
+<div data-auth="in" hidden class="soon">
+  <p><strong>Ad:</strong> <span id="profile-name"></span></p>
+  <p><strong>E-posta:</strong> <span id="profile-email"></span></p>
+</div>
+<div data-auth="out">
+  <p>Profilini görmek için <a href="{{ base }}/giris/">giriş yapmalısın</a>.</p>
+</div>
+{% endblock %}
