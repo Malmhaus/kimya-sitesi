@@ -115,6 +115,7 @@ def main():
     render("giris.html", "giris/index.html")
     render("kayit.html", "kayit/index.html")
     render("profil.html", "profil/index.html")
+    render("periyodik.html", "periyodik-cetvel/index.html")
 
     print(f"{len(categories)} kategori üretildi.")
 
