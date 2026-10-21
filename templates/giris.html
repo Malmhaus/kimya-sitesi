@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Giriş Yap{% endblock %}
+{% block content %}
+<div class="form-box">
+  <h1>Giriş Yap</h1>
+  <form id="login-form">
+    <label>E-posta
+      <input type="email" name="email" required autocomplete="email">
+    </label>
+    <label>Şifre
+      <input type="password" name="password" required autocomplete="current-password">
+    </label>
+    <button class="btn btn-solid" type="submit">Giriş Yap</button>
+    <p id="form-msg" class="form-msg"></p>
+  </form>
+  <p>Hesabın yok mu? <a href="{{ base }}/kayit/">Üye ol</a></p>
+</div>
+{% endblock %}
