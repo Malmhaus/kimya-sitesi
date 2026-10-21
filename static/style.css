@@ -96,3 +96,6 @@ button.pt-cell:hover { transform: scale(1.12); z-index: 2; box-shadow: 0 2px 8px
 .el-table { width: 100%; margin-bottom: .8rem; }
 .el-table th { text-align: left; background: #f1f6f4; width: 45%; }
 .el-note { font-size: .85rem; color: #777; }
+
+.form-box select { display: block; width: 100%; margin-top: .3rem; padding: .6rem; border: 1px solid #bbb; border-radius: 8px; font-size: 1rem; font-family: inherit; background: #fff; }
+.form-box input:disabled { background: #eef1f0; color: #666; }
