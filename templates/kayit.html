@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Üye Ol{% endblock %}
+{% block content %}
+<div class="form-box">
+  <h1>Üye Ol</h1>
+  <form id="signup-form">
+    <label>Ad Soyad
+      <input type="text" name="ad" required autocomplete="name">
+    </label>
+    <label>E-posta
+      <input type="email" name="email" required autocomplete="email">
+    </label>
+    <label>Şifre (en az 6 karakter)
+      <input type="password" name="password" minlength="6" required autocomplete="new-password">
+    </label>
+    <button class="btn btn-solid" type="submit">Üye Ol</button>
+    <p id="form-msg" class="form-msg"></p>
+  </form>
+  <p>Zaten üye misin? <a href="{{ base }}/giris/">Giriş yap</a></p>
+</div>
+{% endblock %}
