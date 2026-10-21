@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Kimya Konuları</h1>
+<section class="hero">
+  <h1>Kimyayı birlikte öğrenelim</h1>
+  <p>Konu anlatımları, testler, deneyler ve etkileşimli periyodik cetvel tek yerde.</p>
+  <a class="btn btn-solid" href="{{ base }}/kayit/">Hemen Üye Ol</a>
+</section>
+
 <div class="cards">
-  {% for cat in categories %}
-  <a class="card" href="{{ base }}/konular/{{ cat.slug }}/">
-    <h2>{{ cat.title }}</h2>
-    <p>{{ cat.description }}</p>
-    <small>{{ cat.topics|length }} konu</small>
-  </a>
-  {% endfor %}
+  <a class="card" href="{{ base }}/konular/"><h2>📚 Konu Anlatımı</h2><p>{{ categories|length }} kategori</p></a>
+  <a class="card" href="{{ base }}/quizler/"><h2>📝 Quizler</h2><p>Kendini sına</p></a>
+  <a class="card" href="{{ base }}/periyodik-cetvel/"><h2>🧪 Periyodik Cetvel</h2><p>118 element</p></a>
+  <a class="card" href="{{ base }}/deneyler/"><h2>🔬 Deneyler</h2><p>Görerek öğren</p></a>
 </div>
 {% endblock %}
