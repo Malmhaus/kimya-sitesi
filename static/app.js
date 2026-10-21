@@ -13,7 +13,6 @@
     toggleSidebar(false);
   });
 
-  // Bulunulan sayfayı menüde işaretle
   document.querySelectorAll("#sidebar nav a").forEach(function (a) {
     var isHome = a.pathname === BASE + "/" || a.pathname === "/";
     var here = location.pathname;
@@ -44,20 +43,33 @@
     : null;
   window.kimyaAuth = sb;
 
+  var PROFILE_FIELDS = ["ad", "soyad", "telefon", "cinsiyet", "dogum", "sinif"];
+
+  function meta(user) { return user.user_metadata || {}; }
+
   function userName(user) {
-    return (user.user_metadata && user.user_metadata.ad) || user.email;
+    var m = meta(user);
+    return m.kullanici_adi || m.ad || user.email;
   }
 
   function setUser(user) {
     document.querySelectorAll('[data-auth="out"]').forEach(function (el) { el.hidden = !!user; });
     document.querySelectorAll('[data-auth="in"]').forEach(function (el) { el.hidden = !user; });
-    if (user) {
-      var n = document.getElementById("user-name");
-      if (n) n.textContent = userName(user);
-      var pn = document.getElementById("profile-name");
-      if (pn) pn.textContent = userName(user);
-      var pe = document.getElementById("profile-email");
-      if (pe) pe.textContent = user.email;
+    if (!user) return;
+
+    var n = document.getElementById("user-name");
+    if (n) n.textContent = userName(user);
+
+    var pu = document.getElementById("profile-username");
+    if (pu) pu.value = meta(user).kullanici_adi || "";
+    var pe = document.getElementById("profile-email");
+    if (pe) pe.value = user.email;
+
+    var pf = document.getElementById("profile-form");
+    if (pf) {
+      PROFILE_FIELDS.forEach(function (k) {
+        if (pf.elements[k]) pf.elements[k].value = meta(user)[k] || "";
+      });
     }
   }
 
@@ -81,6 +93,7 @@
 
   var NOT_READY = "Üyelik sistemi henüz bağlanmadı (Supabase ayarı gerekli).";
 
+  // Giriş
   var loginForm = document.getElementById("login-form");
   if (loginForm) {
     loginForm.addEventListener("submit", function (e) {
@@ -95,6 +108,7 @@
     });
   }
 
+  // Kayıt
   var signupForm = document.getElementById("signup-form");
   if (signupForm) {
     signupForm.addEventListener("submit", function (e) {
@@ -104,7 +118,7 @@
       sb.auth.signUp({
         email: f.get("email"),
         password: f.get("password"),
-        options: { data: { ad: f.get("ad") } }
+        options: { data: { kullanici_adi: f.get("kullanici_adi") } }
       }).then(function (r) {
         if (r.error) return showMsg("Kayıt başarısız: " + r.error.message, false);
         showMsg("Kayıt alındı! E-postana gelen onay bağlantısına tıkla, sonra giriş yap.", true);
@@ -113,6 +127,27 @@
     });
   }
 
+  // Profil kaydet
+  var profileForm = document.getElementById("profile-form");
+  if (profileForm) {
+    profileForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!sb) return showMsg(NOT_READY, false);
+      var data = {};
+      PROFILE_FIELDS.forEach(function (k) {
+        data[k] = (profileForm.elements[k].value || "").trim();
+      });
+      if (data.telefon && !/^[0-9]{10}$/.test(data.telefon)) {
+        return showMsg("Telefon numarası tam 10 haneli olmalı (sadece rakam).", false);
+      }
+      sb.auth.updateUser({ data: data }).then(function (r) {
+        if (r.error) return showMsg("Kaydedilemedi: " + r.error.message, false);
+        showMsg("Bilgilerin kaydedildi.", true);
+      });
+    });
+  }
+
+  // Çıkış
   var logoutBtn = document.getElementById("logout-btn");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", function () {
