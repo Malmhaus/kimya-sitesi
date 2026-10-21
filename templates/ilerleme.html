@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}İlerlemem{% endblock %}
+{% block content %}
+<h1>İlerlemem</h1>
+<div data-auth="in" hidden class="soon">
+  <p>📈 <strong>Çok yakında</strong></p>
+  <p>Çözdüğün testler ve puanların burada görünecek.</p>
+</div>
+<div data-auth="out">
+  <p>İlerlemeni görmek ve kaydetmek için <a href="{{ base }}/giris/">giriş yapmalısın</a>.
+  Hesabın yoksa <a href="{{ base }}/kayit/">üye ol</a>.</p>
+</div>
+{% endblock %}
